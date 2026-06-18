@@ -1,7 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from routers import indicadores, leitos, fila, estoque, profissionais, alertas, relatorios
+from routers import (
+    indicadores, leitos, fila, estoque, profissionais, alertas, relatorios, simulador
+)
 
 app = FastAPI(
     title="Hospital Indicadores — API",
@@ -24,6 +26,7 @@ app.include_router(estoque.router)
 app.include_router(profissionais.router)
 app.include_router(alertas.router)
 app.include_router(relatorios.router)
+app.include_router(simulador.router)
 
 
 @app.get("/")

@@ -5,6 +5,7 @@ import Leitos        from './pages/Leitos'
 import Farmacia      from './pages/Farmacia'
 import Escala        from './pages/Escala'
 import Relatorios    from './pages/Relatorios'
+import Simulacao     from './pages/Simulacao'
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
         <Route path="/farmacia"   element={<Farmacia />} />
         <Route path="/escala"     element={<Escala />} />
         <Route path="/relatorios" element={<Relatorios />} />
+        <Route path="/simulacao"  element={<Simulacao />} />
       </Routes>
     </BrowserRouter>
   )

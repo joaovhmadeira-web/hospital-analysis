@@ -16,7 +16,7 @@ LABELS_MANCHESTER = {
 
 def _ultima_data_pa() -> str:
     r = pd.read_sql(
-        "SELECT MAX(DATE(data_chegada)) AS dt FROM fila_espera", engine
+        "SELECT MAX(CAST(data_chegada AS DATE)) AS dt FROM fila_espera", engine
     )
     return str(r["dt"].iloc[0])
 
@@ -29,21 +29,21 @@ def resumo():
         f"""
         SELECT
             COUNT(*) AS total_registros,
-            SUM(status IN ('aguardando','em_atendimento')) AS aguardando,
-            SUM(status = 'atendido')     AS atendidos,
-            SUM(status = 'encaminhado')  AS encaminhados,
-            SUM(status = 'desistiu')     AS desistencias,
+            SUM(CASE WHEN status IN ('aguardando','em_atendimento') THEN 1 ELSE 0 END) AS aguardando,
+            SUM(CASE WHEN status = 'atendido' THEN 1 ELSE 0 END)     AS atendidos,
+            SUM(CASE WHEN status = 'encaminhado' THEN 1 ELSE 0 END)  AS encaminhados,
+            SUM(CASE WHEN status = 'desistiu' THEN 1 ELSE 0 END)     AS desistencias,
             ROUND(AVG(CASE WHEN data_atendimento IS NOT NULL
-                THEN TIMESTAMPDIFF(MINUTE, data_chegada, data_atendimento) END), 0
+                THEN EXTRACT(EPOCH FROM (data_atendimento - data_chegada)) / 60 END), 0
             ) AS tempo_medio_atendimento_min,
             MIN(CASE WHEN data_atendimento IS NOT NULL
-                THEN TIMESTAMPDIFF(MINUTE, data_chegada, data_atendimento) END
+                THEN EXTRACT(EPOCH FROM (data_atendimento - data_chegada)) / 60 END
             ) AS tempo_min_min,
             MAX(CASE WHEN data_atendimento IS NOT NULL
-                THEN TIMESTAMPDIFF(MINUTE, data_chegada, data_atendimento) END
+                THEN EXTRACT(EPOCH FROM (data_atendimento - data_chegada)) / 60 END
             ) AS tempo_max_min
         FROM fila_espera
-        WHERE DATE(data_chegada) = '{data}'
+        WHERE CAST(data_chegada AS DATE) = '{data}'
         """,
         engine,
     ).fillna(0)
@@ -58,12 +58,12 @@ def por_prioridade():
         f"""
         SELECT prioridade,
                COUNT(*) AS total,
-               SUM(status IN ('aguardando','em_atendimento')) AS aguardando,
+               SUM(CASE WHEN status IN ('aguardando','em_atendimento') THEN 1 ELSE 0 END) AS aguardando,
                ROUND(AVG(CASE WHEN data_atendimento IS NOT NULL
-                   THEN TIMESTAMPDIFF(MINUTE, data_chegada, data_atendimento) END), 0
+                   THEN EXTRACT(EPOCH FROM (data_atendimento - data_chegada)) / 60 END), 0
                ) AS tempo_medio_min
         FROM fila_espera
-        WHERE DATE(data_chegada) = '{data}'
+        WHERE CAST(data_chegada AS DATE) = '{data}'
         GROUP BY prioridade
         """,
         engine,
@@ -80,16 +80,16 @@ def historico(dias: int = 30):
     """Evolução diária do fluxo do PA nos últimos N dias."""
     df = pd.read_sql(
         f"""
-        SELECT DATE(data_chegada) AS data,
+        SELECT CAST(data_chegada AS DATE) AS data,
                COUNT(*) AS total,
-               SUM(status IN ('aguardando','em_atendimento')) AS aguardando,
-               SUM(status = 'desistiu') AS desistencias,
+               SUM(CASE WHEN status IN ('aguardando','em_atendimento') THEN 1 ELSE 0 END) AS aguardando,
+               SUM(CASE WHEN status = 'desistiu' THEN 1 ELSE 0 END) AS desistencias,
                ROUND(AVG(CASE WHEN data_atendimento IS NOT NULL
-                   THEN TIMESTAMPDIFF(MINUTE, data_chegada, data_atendimento) END), 0
+                   THEN EXTRACT(EPOCH FROM (data_atendimento - data_chegada)) / 60 END), 0
                ) AS tempo_medio_min
         FROM fila_espera
-        WHERE data_chegada >= NOW() - INTERVAL {dias} DAY
-        GROUP BY DATE(data_chegada)
+        WHERE data_chegada >= NOW() - INTERVAL '{dias} days'
+        GROUP BY CAST(data_chegada AS DATE)
         ORDER BY data
         """,
         engine,

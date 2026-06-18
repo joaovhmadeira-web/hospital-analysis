@@ -8,7 +8,7 @@ router = APIRouter(prefix="/api/indicadores", tags=["Indicadores"])
 
 
 def _ultima_data(tabela: str, col: str) -> str:
-    r = pd.read_sql(f"SELECT MAX(DATE({col})) AS dt FROM {tabela}", engine)
+    r = pd.read_sql(f"SELECT MAX(CAST({col} AS DATE)) AS dt FROM {tabela}", engine)
     return str(r["dt"].iloc[0])
 
 
@@ -20,10 +20,10 @@ def resumo():
         """
         SELECT tl.nome AS tipo,
                COUNT(*) AS total,
-               SUM(status = 'disponivel') AS disponiveis,
-               SUM(status = 'ocupado')    AS ocupados,
-               SUM(status = 'manutencao') AS manutencao,
-               ROUND(SUM(status='ocupado')/COUNT(*)*100,1) AS taxa_ocupacao_pct
+               SUM(CASE WHEN status = 'disponivel' THEN 1 ELSE 0 END) AS disponiveis,
+               SUM(CASE WHEN status = 'ocupado' THEN 1 ELSE 0 END)    AS ocupados,
+               SUM(CASE WHEN status = 'manutencao' THEN 1 ELSE 0 END) AS manutencao,
+               ROUND(SUM(CASE WHEN status = 'ocupado' THEN 1 ELSE 0 END)::numeric / COUNT(*) * 100, 1) AS taxa_ocupacao_pct
         FROM leitos l
         JOIN tipos_leito tl ON l.tipo_id = tl.id
         GROUP BY tl.id, tl.nome
@@ -43,14 +43,14 @@ def resumo():
         f"""
         SELECT
             COUNT(*) AS total_dia,
-            SUM(status IN ('aguardando','em_atendimento')) AS aguardando,
-            SUM(status = 'desistiu')  AS desistencias,
+            SUM(CASE WHEN status IN ('aguardando','em_atendimento') THEN 1 ELSE 0 END) AS aguardando,
+            SUM(CASE WHEN status = 'desistiu' THEN 1 ELSE 0 END)  AS desistencias,
             ROUND(AVG(CASE WHEN data_atendimento IS NOT NULL
-                THEN TIMESTAMPDIFF(MINUTE, data_chegada, data_atendimento)
-                ELSE TIMESTAMPDIFF(MINUTE, data_chegada, NOW()) END), 0
+                THEN EXTRACT(EPOCH FROM (data_atendimento - data_chegada)) / 60
+                ELSE EXTRACT(EPOCH FROM (NOW() - data_chegada)) / 60 END), 0
             ) AS tempo_medio_espera_min
         FROM fila_espera
-        WHERE DATE(data_chegada) = '{data_pa}'
+        WHERE CAST(data_chegada AS DATE) = '{data_pa}'
           AND status != 'desistiu'
         """,
         engine,
@@ -81,7 +81,7 @@ def enfermidades(
     limite: int = Query(10, ge=5, le=25),
 ):
     """Principais CIDs registrados nas internações por período."""
-    intervalos = {"dia": "1 DAY", "semana": "7 DAY", "mes": "30 DAY", "ano": "365 DAY"}
+    intervalos = {"dia": "1 day", "semana": "7 days", "mes": "30 days", "ano": "365 days"}
     intervalo  = intervalos[periodo]
 
     df = pd.read_sql(
@@ -92,7 +92,7 @@ def enfermidades(
                COUNT(*) AS total_internacoes
         FROM internacoes i
         JOIN diagnosticos d ON i.diagnostico_principal_id = d.id
-        WHERE i.data_entrada >= NOW() - INTERVAL {intervalo}
+        WHERE i.data_entrada >= NOW() - INTERVAL '{intervalo}'
         GROUP BY d.id, d.cid_codigo, d.descricao, d.categoria
         ORDER BY total_internacoes DESC
         LIMIT {limite}

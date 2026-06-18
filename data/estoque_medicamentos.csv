@@ -1,68 +1,68 @@
 ﻿id,nome,categoria,unidade,quantidade_atual,quantidade_minima,percentual_disponibilidade,status_estoque,fornecedor,validade,localizacao_almoxarifado
-1,"Soro Fisiológico 0,9% 500ml",Soluções IV,bolsa,1614,500,80.7,adequado,MedPharma Distribuidora,2028-04-09,ALMO-A04
-2,Soro Glicosado 5% 500ml,Soluções IV,bolsa,851,300,70.9,adequado,BioSaúde Comércio,2028-03-24,ALMO-C04
-3,Ringer Lactato 500ml,Soluções IV,bolsa,613,200,76.6,adequado,MedPharma Distribuidora,2028-06-04,ALMO-B04
-4,Dipirona 500mg/ml amp 2ml,Analgésicos,ampola,3688,800,100.0,adequado,MedPharma Distribuidora,2027-07-26,ALMO-C03
-5,Tramadol 50mg/ml amp 2ml,Analgésicos Opioides,ampola,667,200,83.4,adequado,MedPharma Distribuidora,2026-10-19,ALMO-B13
-6,Morfina 10mg/ml amp 1ml,Analgésicos Opioides,ampola,313,100,78.2,adequado,HospitalMed Suprimentos,2027-01-26,ALMO-C12
-7,Omeprazol 40mg fr-amp,Protetores Gástricos,frasco,732,200,91.5,adequado,DistribMed Nordeste,2028-04-24,ALMO-C13
-8,Metoclopramida 5mg/ml amp 2ml,Antiemeticos,ampola,963,300,80.2,adequado,MedPharma Distribuidora,2027-12-19,ALMO-C01
-9,Ondansetrona 2mg/ml amp 4ml,Antiemeticos,ampola,453,150,75.5,adequado,HospitalMed Suprimentos,2026-09-02,ALMO-C04
-10,Diazepam 5mg/ml amp 2ml,Benzodiazepínicos,ampola,296,80,92.5,adequado,HospitalMed Suprimentos,2027-03-20,ALMO-B14
-11,Midazolam 5mg/ml amp 10ml,Benzodiazepínicos,ampola,162,60,67.5,adequado,FarmaHosp Brasil,2027-08-27,ALMO-B13
-12,Amoxicilina + Clavulanato 1g fr,Antibióticos,frasco,348,100,87.0,adequado,FarmaHosp Brasil,2026-12-08,ALMO-B04
-13,Ceftriaxona 1g fr-amp,Antibióticos,frasco,636,200,79.5,adequado,DistribMed Nordeste,2027-11-01,ALMO-C18
-14,Ciprofloxacino 200mg/100ml,Antibióticos,frasco,283,80,88.4,adequado,MedPharma Distribuidora,2027-11-06,ALMO-C15
-15,Vancomicina 500mg fr-amp,Antibióticos,frasco,245,60,100.0,adequado,DistribMed Nordeste,2026-10-01,ALMO-C07
-16,"Piperacilina+Tazobactam 4,5g fr",Antibióticos,frasco,173,50,86.5,adequado,MedPharma Distribuidora,2027-05-25,ALMO-B15
-17,Meropenem 1g fr-amp,Antibióticos,frasco,134,40,83.8,adequado,FarmaHosp Brasil,2026-10-13,ALMO-A09
-18,Heparina Sódica 5000UI/ml 5ml,Anticoagulantes,ampola,539,150,89.8,adequado,MedPharma Distribuidora,2026-07-16,ALMO-C18
-19,Enoxaparina 40mg seringa,Anticoagulantes,seringa,407,120,84.8,adequado,HospitalMed Suprimentos,2027-12-26,ALMO-A04
-20,Furosemida 10mg/ml amp 2ml,Diuréticos,ampola,778,250,77.8,adequado,DistribMed Nordeste,2026-10-03,ALMO-C10
-21,Hidroclorotiazida 25mg cp,Diuréticos,comprimido,2593,700,92.6,adequado,BioSaúde Comércio,2027-05-29,ALMO-C03
-22,Metoprolol 5mg/ml amp 5ml,Betabloqueadores,ampola,342,80,100.0,adequado,BioSaúde Comércio,2027-03-11,ALMO-A09
-23,Atenolol 25mg cp,Betabloqueadores,comprimido,1836,500,91.8,adequado,DistribMed Nordeste,2027-08-09,ALMO-C15
-24,Captopril 25mg cp,Anti-hipertensivos,comprimido,4083,900,100.0,adequado,BioSaúde Comércio,2028-03-08,ALMO-B05
-25,Losartana 50mg cp,Anti-hipertensivos,comprimido,3005,700,100.0,adequado,MedPharma Distribuidora,2027-02-26,ALMO-B19
-26,"Enalaprilato 1,25mg/ml amp 2ml",Anti-hipertensivos,ampola,329,80,100.0,adequado,FarmaHosp Brasil,2026-08-05,ALMO-A19
-27,Nitroprussiato 50mg fr-amp,Vasodilatadores,frasco,98,25,98.0,adequado,HospitalMed Suprimentos,2028-01-04,ALMO-C20
-28,Dopamina 5mg/ml amp 10ml,Vasopressores,ampola,167,50,83.5,adequado,MedPharma Distribuidora,2027-04-24,ALMO-B01
-29,Norepinefrina 1mg/ml amp 4ml,Vasopressores,ampola,128,40,80.0,adequado,MedPharma Distribuidora,2026-10-29,ALMO-C12
-30,Adrenalina 1mg/ml amp 1ml,Vasopressores,ampola,570,120,100.0,adequado,HospitalMed Suprimentos,2026-10-11,ALMO-A02
-31,"Atropina 0,5mg/ml amp 1ml",Anticolinérgicos,ampola,310,100,77.5,adequado,MedPharma Distribuidora,2027-10-11,ALMO-B13
-32,Glicose 50% amp 10ml,Soluções IV,ampola,602,150,100.0,adequado,FarmaHosp Brasil,2026-07-19,ALMO-B04
-33,Insulina Regular 100UI/ml 10ml,Antidiabéticos,frasco,279,60,100.0,adequado,FarmaHosp Brasil,2027-08-30,ALMO-C09
-34,Insulina NPH 100UI/ml 10ml,Antidiabéticos,frasco,191,50,95.5,adequado,MedPharma Distribuidora,2028-01-17,ALMO-C05
-35,"Dexametasona 4mg/ml amp 2,5ml",Corticosteroides,ampola,867,200,100.0,adequado,BioSaúde Comércio,2027-11-27,ALMO-A17
-36,Metilprednisolona 125mg fr-amp,Corticosteroides,frasco,322,80,100.0,adequado,MedPharma Distribuidora,2028-01-01,ALMO-A17
-37,Hidrocortisona 500mg fr-amp,Corticosteroides,frasco,244,60,100.0,adequado,DistribMed Nordeste,2027-08-17,ALMO-C13
-38,Fenobarbital 100mg/ml amp 2ml,Anticonvulsivantes,ampola,169,50,84.5,adequado,BioSaúde Comércio,2027-03-03,ALMO-B09
-39,Valproato 500mg/5ml amp,Anticonvulsivantes,ampola,135,40,84.4,adequado,HospitalMed Suprimentos,2027-06-14,ALMO-B15
-40,Levetiracetam 500mg/5ml fr,Anticonvulsivantes,frasco,123,35,87.9,adequado,MedPharma Distribuidora,2027-12-07,ALMO-B06
-41,Sulfato de Magnésio 10% 10ml,Eletrólitos IV,ampola,769,200,96.1,adequado,FarmaHosp Brasil,2028-02-19,ALMO-B07
-42,Cloreto de Potássio 10% 10ml,Eletrólitos IV,ampola,838,250,83.8,adequado,MedPharma Distribuidora,2026-08-10,ALMO-C19
-43,"Bicarbonato de Sódio 8,4% 10ml",Eletrólitos IV,ampola,488,120,100.0,adequado,DistribMed Nordeste,2026-07-22,ALMO-C09
-44,Phytomenadione 10mg/ml amp 1ml,Hemostáticos,ampola,205,60,85.4,adequado,HospitalMed Suprimentos,2026-11-04,ALMO-B06
-45,Ácido Tranexâmico 50mg/ml 10ml,Hemostáticos,ampola,144,50,72.0,adequado,FarmaHosp Brasil,2028-04-14,ALMO-A03
-46,Glicerina Líquida 12g/ml 120ml,Laxantes,frasco,318,100,79.5,adequado,FarmaHosp Brasil,2027-08-18,ALMO-B17
-47,Lactulose Xarope 667mg/ml 150ml,Laxantes,frasco,263,80,82.2,adequado,DistribMed Nordeste,2027-10-06,ALMO-A04
-48,Salbutamol Spray 100mcg/dose,Broncodilatadores,frasco,349,80,100.0,adequado,HospitalMed Suprimentos,2027-07-21,ALMO-C19
-49,"Ipratrópio 0,25mg/ml nebulização",Broncodilatadores,frasco,252,70,90.0,adequado,BioSaúde Comércio,2027-12-22,ALMO-B02
-50,Aminofilina 24mg/ml amp 10ml,Broncodilatadores,ampola,221,55,100.0,adequado,MedPharma Distribuidora,2026-08-24,ALMO-B15
-51,Luva de Procedimento M,EPI,par,4810,1000,100.0,adequado,BioSaúde Comércio,2027-09-14,ALMO-B13
-52,Luva de Procedimento G,EPI,par,4626,1000,100.0,adequado,BioSaúde Comércio,2027-04-25,ALMO-A14
-53,Máscara Cirúrgica tripla,EPI,unidade,3849,800,100.0,adequado,MedPharma Distribuidora,2027-08-18,ALMO-B15
-54,Máscara N95,EPI,unidade,1131,300,94.2,adequado,MedPharma Distribuidora,2027-10-27,ALMO-A03
-55,Seringa 10ml,Material de Infusão,unidade,2367,600,98.6,adequado,MedPharma Distribuidora,2026-08-23,ALMO-B01
-56,Agulha 25x8,Material de Infusão,unidade,3549,700,100.0,adequado,DistribMed Nordeste,2028-05-17,ALMO-A11
-57,Jelco 18G,Material de Infusão,unidade,2020,400,100.0,adequado,FarmaHosp Brasil,2027-01-27,ALMO-B19
-58,Jelco 20G,Material de Infusão,unidade,2182,500,100.0,adequado,FarmaHosp Brasil,2028-04-21,ALMO-C06
-59,Equipo Macro Gotejador,Material de Infusão,unidade,1706,450,94.8,adequado,HospitalMed Suprimentos,2027-07-20,ALMO-C11
-60,"Gaze Estéril 7,5x7,5 c/5",Curativos,pacote,1473,350,100.0,adequado,BioSaúde Comércio,2027-10-29,ALMO-B03
-61,Atadura Crepom 10cm,Curativos,rolo,782,250,78.2,adequado,DistribMed Nordeste,2027-03-15,ALMO-A12
-62,"Esparadrapo Antialérgico 10x4,5m",Curativos,rolo,544,120,100.0,adequado,DistribMed Nordeste,2027-12-22,ALMO-C09
-63,Sonda Nasogástrica nº 12,Sondas,unidade,238,70,85.0,adequado,DistribMed Nordeste,2027-12-25,ALMO-B03
-64,Sonda Foley 2 Vias 14Fr,Sondas,unidade,414,90,100.0,adequado,HospitalMed Suprimentos,2028-06-02,ALMO-C17
-65,Coletor de Urina 2L,Sondas,unidade,338,100,84.5,adequado,HospitalMed Suprimentos,2027-03-30,ALMO-A09
-66,Máscara de Nebulização Adulto,Respiratório,unidade,489,140,87.3,adequado,DistribMed Nordeste,2028-03-12,ALMO-C16
-67,Cateter Nasal O2 Adulto,Respiratório,unidade,703,160,100.0,adequado,MedPharma Distribuidora,2027-02-22,ALMO-A04
+1,"Soro Fisiológico 0,9% 500ml",Soluções IV,bolsa,1982,500,99.1,adequado,DistribMed Nordeste,2027-06-29,ALMO-C15
+2,Soro Glicosado 5% 500ml,Soluções IV,bolsa,950,300,79.2,adequado,MedPharma Distribuidora,2027-08-25,ALMO-B12
+3,Ringer Lactato 500ml,Soluções IV,bolsa,678,200,84.8,adequado,HospitalMed Suprimentos,2028-03-04,ALMO-A09
+4,Dipirona 500mg/ml amp 2ml,Analgésicos,ampola,3478,800,100.0,adequado,FarmaHosp Brasil,2028-02-19,ALMO-A09
+5,Tramadol 50mg/ml amp 2ml,Analgésicos Opioides,ampola,915,200,100.0,adequado,DistribMed Nordeste,2028-06-14,ALMO-A20
+6,Morfina 10mg/ml amp 1ml,Analgésicos Opioides,ampola,372,100,93.0,adequado,HospitalMed Suprimentos,2026-10-19,ALMO-B12
+7,Omeprazol 40mg fr-amp,Protetores Gástricos,frasco,653,200,81.6,adequado,HospitalMed Suprimentos,2028-05-31,ALMO-C16
+8,Metoclopramida 5mg/ml amp 2ml,Antiemeticos,ampola,1047,300,87.2,adequado,FarmaHosp Brasil,2026-11-05,ALMO-A18
+9,Ondansetrona 2mg/ml amp 4ml,Antiemeticos,ampola,507,150,84.5,adequado,BioSaúde Comércio,2028-01-12,ALMO-B08
+10,Diazepam 5mg/ml amp 2ml,Benzodiazepínicos,ampola,288,80,90.0,adequado,DistribMed Nordeste,2026-09-25,ALMO-B10
+11,Midazolam 5mg/ml amp 10ml,Benzodiazepínicos,ampola,213,60,88.8,adequado,BioSaúde Comércio,2028-05-29,ALMO-B15
+12,Amoxicilina + Clavulanato 1g fr,Antibióticos,frasco,449,100,100.0,adequado,FarmaHosp Brasil,2027-09-08,ALMO-A19
+13,Ceftriaxona 1g fr-amp,Antibióticos,frasco,583,200,72.9,adequado,DistribMed Nordeste,2026-08-05,ALMO-A03
+14,Ciprofloxacino 200mg/100ml,Antibióticos,frasco,316,80,98.8,adequado,FarmaHosp Brasil,2027-10-10,ALMO-A16
+15,Vancomicina 500mg fr-amp,Antibióticos,frasco,248,60,100.0,adequado,DistribMed Nordeste,2027-09-19,ALMO-A14
+16,"Piperacilina+Tazobactam 4,5g fr",Antibióticos,frasco,208,50,100.0,adequado,FarmaHosp Brasil,2028-01-03,ALMO-C13
+17,Meropenem 1g fr-amp,Antibióticos,frasco,154,40,96.2,adequado,MedPharma Distribuidora,2027-05-03,ALMO-C06
+18,Heparina Sódica 5000UI/ml 5ml,Anticoagulantes,ampola,564,150,94.0,adequado,FarmaHosp Brasil,2026-08-18,ALMO-C11
+19,Enoxaparina 40mg seringa,Anticoagulantes,seringa,496,120,100.0,adequado,HospitalMed Suprimentos,2027-05-17,ALMO-B06
+20,Furosemida 10mg/ml amp 2ml,Diuréticos,ampola,755,250,75.5,adequado,FarmaHosp Brasil,2027-09-05,ALMO-A09
+21,Hidroclorotiazida 25mg cp,Diuréticos,comprimido,2916,700,100.0,adequado,BioSaúde Comércio,2026-10-20,ALMO-C13
+22,Metoprolol 5mg/ml amp 5ml,Betabloqueadores,ampola,346,80,100.0,adequado,MedPharma Distribuidora,2026-11-11,ALMO-B08
+23,Atenolol 25mg cp,Betabloqueadores,comprimido,1655,500,82.8,adequado,HospitalMed Suprimentos,2026-09-21,ALMO-B03
+24,Captopril 25mg cp,Anti-hipertensivos,comprimido,3867,900,100.0,adequado,DistribMed Nordeste,2026-11-23,ALMO-C20
+25,Losartana 50mg cp,Anti-hipertensivos,comprimido,3151,700,100.0,adequado,FarmaHosp Brasil,2028-04-16,ALMO-A18
+26,"Enalaprilato 1,25mg/ml amp 2ml",Anti-hipertensivos,ampola,316,80,98.8,adequado,MedPharma Distribuidora,2027-12-21,ALMO-B11
+27,Nitroprussiato 50mg fr-amp,Vasodilatadores,frasco,88,25,88.0,adequado,MedPharma Distribuidora,2027-10-08,ALMO-B02
+28,Dopamina 5mg/ml amp 10ml,Vasopressores,ampola,199,50,99.5,adequado,DistribMed Nordeste,2026-08-01,ALMO-C12
+29,Norepinefrina 1mg/ml amp 4ml,Vasopressores,ampola,127,40,79.4,adequado,MedPharma Distribuidora,2028-04-06,ALMO-B15
+30,Adrenalina 1mg/ml amp 1ml,Vasopressores,ampola,427,120,89.0,adequado,HospitalMed Suprimentos,2027-06-25,ALMO-B06
+31,"Atropina 0,5mg/ml amp 1ml",Anticolinérgicos,ampola,403,100,100.0,adequado,BioSaúde Comércio,2027-05-29,ALMO-A05
+32,Glicose 50% amp 10ml,Soluções IV,ampola,578,150,96.3,adequado,DistribMed Nordeste,2027-08-05,ALMO-B05
+33,Insulina Regular 100UI/ml 10ml,Antidiabéticos,frasco,238,60,99.2,adequado,HospitalMed Suprimentos,2027-11-27,ALMO-C15
+34,Insulina NPH 100UI/ml 10ml,Antidiabéticos,frasco,192,50,96.0,adequado,HospitalMed Suprimentos,2026-11-12,ALMO-B18
+35,"Dexametasona 4mg/ml amp 2,5ml",Corticosteroides,ampola,671,200,83.9,adequado,FarmaHosp Brasil,2026-07-23,ALMO-A06
+36,Metilprednisolona 125mg fr-amp,Corticosteroides,frasco,315,80,98.4,adequado,MedPharma Distribuidora,2026-11-22,ALMO-A07
+37,Hidrocortisona 500mg fr-amp,Corticosteroides,frasco,240,60,100.0,adequado,MedPharma Distribuidora,2026-09-07,ALMO-A05
+38,Fenobarbital 100mg/ml amp 2ml,Anticonvulsivantes,ampola,187,50,93.5,adequado,MedPharma Distribuidora,2028-03-24,ALMO-C02
+39,Valproato 500mg/5ml amp,Anticonvulsivantes,ampola,160,40,100.0,adequado,BioSaúde Comércio,2027-10-14,ALMO-C11
+40,Levetiracetam 500mg/5ml fr,Anticonvulsivantes,frasco,127,35,90.7,adequado,HospitalMed Suprimentos,2027-10-18,ALMO-C16
+41,Sulfato de Magnésio 10% 10ml,Eletrólitos IV,ampola,804,200,100.0,adequado,DistribMed Nordeste,2028-05-08,ALMO-A05
+42,Cloreto de Potássio 10% 10ml,Eletrólitos IV,ampola,852,250,85.2,adequado,HospitalMed Suprimentos,2027-03-09,ALMO-C03
+43,"Bicarbonato de Sódio 8,4% 10ml",Eletrólitos IV,ampola,416,120,86.7,adequado,DistribMed Nordeste,2028-05-26,ALMO-C03
+44,Phytomenadione 10mg/ml amp 1ml,Hemostáticos,ampola,249,60,100.0,adequado,DistribMed Nordeste,2027-03-21,ALMO-B13
+45,Ácido Tranexâmico 50mg/ml 10ml,Hemostáticos,ampola,169,50,84.5,adequado,BioSaúde Comércio,2028-04-16,ALMO-C08
+46,Glicerina Líquida 12g/ml 120ml,Laxantes,frasco,454,100,100.0,adequado,DistribMed Nordeste,2027-12-25,ALMO-C01
+47,Lactulose Xarope 667mg/ml 150ml,Laxantes,frasco,266,80,83.1,adequado,FarmaHosp Brasil,2027-08-21,ALMO-C17
+48,Salbutamol Spray 100mcg/dose,Broncodilatadores,frasco,274,80,85.6,adequado,BioSaúde Comércio,2026-12-06,ALMO-C15
+49,"Ipratrópio 0,25mg/ml nebulização",Broncodilatadores,frasco,273,70,97.5,adequado,HospitalMed Suprimentos,2027-04-23,ALMO-B14
+50,Aminofilina 24mg/ml amp 10ml,Broncodilatadores,ampola,220,55,100.0,adequado,FarmaHosp Brasil,2026-11-04,ALMO-C07
+51,Luva de Procedimento M,EPI,par,4378,1000,100.0,adequado,BioSaúde Comércio,2028-04-18,ALMO-A09
+52,Luva de Procedimento G,EPI,par,4643,1000,100.0,adequado,BioSaúde Comércio,2028-04-02,ALMO-C09
+53,Máscara Cirúrgica tripla,EPI,unidade,4194,800,100.0,adequado,DistribMed Nordeste,2028-01-23,ALMO-C01
+54,Máscara N95,EPI,unidade,991,300,82.6,adequado,DistribMed Nordeste,2027-08-10,ALMO-B01
+55,Seringa 10ml,Material de Infusão,unidade,2688,600,100.0,adequado,MedPharma Distribuidora,2027-11-08,ALMO-C07
+56,Agulha 25x8,Material de Infusão,unidade,3333,700,100.0,adequado,FarmaHosp Brasil,2026-12-15,ALMO-B10
+57,Jelco 18G,Material de Infusão,unidade,1779,400,100.0,adequado,DistribMed Nordeste,2027-12-14,ALMO-C19
+58,Jelco 20G,Material de Infusão,unidade,2246,500,100.0,adequado,BioSaúde Comércio,2027-12-11,ALMO-A09
+59,Equipo Macro Gotejador,Material de Infusão,unidade,1827,450,100.0,adequado,HospitalMed Suprimentos,2027-08-20,ALMO-A03
+60,"Gaze Estéril 7,5x7,5 c/5",Curativos,pacote,1662,350,100.0,adequado,MedPharma Distribuidora,2028-06-17,ALMO-B05
+61,Atadura Crepom 10cm,Curativos,rolo,1064,250,100.0,adequado,DistribMed Nordeste,2027-01-10,ALMO-B10
+62,"Esparadrapo Antialérgico 10x4,5m",Curativos,rolo,446,120,92.9,adequado,DistribMed Nordeste,2028-02-18,ALMO-A19
+63,Sonda Nasogástrica nº 12,Sondas,unidade,243,70,86.8,adequado,MedPharma Distribuidora,2026-10-07,ALMO-A05
+64,Sonda Foley 2 Vias 14Fr,Sondas,unidade,350,90,97.2,adequado,HospitalMed Suprimentos,2026-10-01,ALMO-B04
+65,Coletor de Urina 2L,Sondas,unidade,501,100,100.0,adequado,HospitalMed Suprimentos,2027-12-19,ALMO-B03
+66,Máscara de Nebulização Adulto,Respiratório,unidade,546,140,97.5,adequado,BioSaúde Comércio,2027-12-21,ALMO-B02
+67,Cateter Nasal O2 Adulto,Respiratório,unidade,660,160,100.0,adequado,BioSaúde Comércio,2026-11-05,ALMO-C13

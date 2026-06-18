@@ -84,12 +84,12 @@ def _gerar_excel(periodo_dias: int) -> io.BytesIO:
 
     df = pd.read_sql(
         """
-        SELECT tl.nome AS Tipo, s.nome AS Setor,
-               COUNT(*) AS Total,
-               SUM(l.status='disponivel') AS Disponíveis,
-               SUM(l.status='ocupado')    AS Ocupados,
-               SUM(l.status='manutencao') AS Manutenção,
-               ROUND(SUM(l.status='ocupado')/COUNT(*)*100,1) AS `Taxa Ocupação (%)`
+        SELECT tl.nome AS "Tipo", s.nome AS "Setor",
+               COUNT(*) AS "Total",
+               SUM(CASE WHEN l.status='disponivel' THEN 1 ELSE 0 END) AS "Disponíveis",
+               SUM(CASE WHEN l.status='ocupado' THEN 1 ELSE 0 END)    AS "Ocupados",
+               SUM(CASE WHEN l.status='manutencao' THEN 1 ELSE 0 END) AS "Manutenção",
+               ROUND(SUM(CASE WHEN l.status='ocupado' THEN 1 ELSE 0 END)::numeric / COUNT(*) * 100, 1) AS "Taxa Ocupação (%)"
         FROM leitos l
         JOIN tipos_leito tl ON l.tipo_id = tl.id
         JOIN setores s ON l.setor_id = s.id
@@ -111,22 +111,22 @@ def _gerar_excel(periodo_dias: int) -> io.BytesIO:
 
     df2 = pd.read_sql(
         f"""
-        SELECT p.nome AS Paciente,
-               DATE_FORMAT(p.data_nascimento,'%d/%m/%Y') AS `Data Nasc.`,
-               p.sexo AS Sexo,
-               d.cid_codigo AS CID,
-               d.descricao  AS Diagnóstico,
-               l.numero AS Leito,
-               tl.nome  AS `Tipo Leito`,
-               DATE_FORMAT(i.data_entrada,'%d/%m/%Y %H:%i') AS `Data Entrada`,
-               DATE_FORMAT(i.data_alta,  '%d/%m/%Y %H:%i') AS `Alta / Transferência`,
-               i.status AS Status
+        SELECT p.nome AS "Paciente",
+               to_char(p.data_nascimento, 'DD/MM/YYYY') AS "Data Nasc.",
+               p.sexo AS "Sexo",
+               d.cid_codigo AS "CID",
+               d.descricao  AS "Diagnóstico",
+               l.numero AS "Leito",
+               tl.nome  AS "Tipo Leito",
+               to_char(i.data_entrada, 'DD/MM/YYYY HH24:MI') AS "Data Entrada",
+               to_char(i.data_alta, 'DD/MM/YYYY HH24:MI') AS "Alta / Transferência",
+               i.status AS "Status"
         FROM internacoes i
         JOIN pacientes   p  ON i.paciente_id = p.id
         JOIN diagnosticos d ON i.diagnostico_principal_id = d.id
         JOIN leitos l       ON i.leito_id = l.id
         JOIN tipos_leito tl ON l.tipo_id  = tl.id
-        WHERE i.data_entrada >= NOW() - INTERVAL {periodo_dias} DAY
+        WHERE i.data_entrada >= NOW() - INTERVAL '{periodo_dias} days'
         ORDER BY i.data_entrada DESC
         """,
         engine,
@@ -144,18 +144,18 @@ def _gerar_excel(periodo_dias: int) -> io.BytesIO:
 
     df3 = pd.read_sql(
         f"""
-        SELECT DATE_FORMAT(data_chegada,'%d/%m/%Y') AS Data,
-               COUNT(*) AS `Total Atendimentos`,
-               SUM(status IN ('aguardando','em_atendimento')) AS Aguardando,
-               SUM(status = 'atendido')  AS Atendidos,
-               SUM(status = 'desistiu')  AS Desistências,
+        SELECT to_char(data_chegada, 'DD/MM/YYYY') AS "Data",
+               COUNT(*) AS "Total Atendimentos",
+               SUM(CASE WHEN status IN ('aguardando','em_atendimento') THEN 1 ELSE 0 END) AS "Aguardando",
+               SUM(CASE WHEN status = 'atendido' THEN 1 ELSE 0 END)  AS "Atendidos",
+               SUM(CASE WHEN status = 'desistiu' THEN 1 ELSE 0 END)  AS "Desistências",
                ROUND(AVG(CASE WHEN data_atendimento IS NOT NULL
-                   THEN TIMESTAMPDIFF(MINUTE, data_chegada, data_atendimento) END), 0
-               ) AS `T. Médio Espera (min)`
+                   THEN EXTRACT(EPOCH FROM (data_atendimento - data_chegada)) / 60 END), 0
+               ) AS "T. Médio Espera (min)"
         FROM fila_espera
-        WHERE data_chegada >= NOW() - INTERVAL {periodo_dias} DAY
-        GROUP BY DATE(data_chegada)
-        ORDER BY DATE(data_chegada)
+        WHERE data_chegada >= NOW() - INTERVAL '{periodo_dias} days'
+        GROUP BY CAST(data_chegada AS DATE), to_char(data_chegada, 'DD/MM/YYYY')
+        ORDER BY CAST(data_chegada AS DATE)
         """,
         engine,
     ).fillna(0)
@@ -196,20 +196,20 @@ def _gerar_excel(periodo_dias: int) -> io.BytesIO:
 
     df5 = pd.read_sql(
         """
-        SELECT pro.nome AS Profissional,
-               pro.tipo AS Tipo,
-               COALESCE(e.nome,'—') AS Especialidade,
-               s.nome AS Setor,
-               p.data AS Data,
-               p.turno AS Turno,
-               TIME_FORMAT(p.inicio,'%H:%i') AS Início,
-               TIME_FORMAT(p.fim,   '%H:%i') AS Fim
+        SELECT pro.nome AS "Profissional",
+               pro.tipo AS "Tipo",
+               COALESCE(e.nome,'—') AS "Especialidade",
+               s.nome AS "Setor",
+               p.data AS "Data",
+               p.turno AS "Turno",
+               to_char(p.inicio, 'HH24:MI') AS "Início",
+               to_char(p.fim,    'HH24:MI') AS "Fim"
         FROM plantoes p
         JOIN profissionais pro ON p.profissional_id = pro.id
         JOIN setores s ON p.setor_id = s.id
         LEFT JOIN especialidades e ON pro.especialidade_id = e.id
-        WHERE p.data >= CURDATE() - INTERVAL 7 DAY
-        ORDER BY p.data, FIELD(p.turno,'manha','tarde','noite'), s.nome
+        WHERE p.data >= CURRENT_DATE - INTERVAL '7 days'
+        ORDER BY p.data, CASE p.turno WHEN 'manha' THEN 1 WHEN 'tarde' THEN 2 WHEN 'noite' THEN 3 END, s.nome
         """,
         engine,
     )
@@ -276,11 +276,11 @@ def _gerar_pdf(periodo_dias: int) -> io.BytesIO:
     story.append(Paragraph("1. Censo de Leitos — Situação Atual", secao_style))
     df_leitos = pd.read_sql(
         """
-        SELECT tl.nome AS Tipo,
-               COUNT(*) AS Total,
-               SUM(l.status='disponivel') AS Disponíveis,
-               SUM(l.status='ocupado')    AS Ocupados,
-               ROUND(SUM(l.status='ocupado')/COUNT(*)*100,1) AS `Taxa (%)`
+        SELECT tl.nome AS "Tipo",
+               COUNT(*) AS "Total",
+               SUM(CASE WHEN l.status='disponivel' THEN 1 ELSE 0 END) AS "Disponíveis",
+               SUM(CASE WHEN l.status='ocupado' THEN 1 ELSE 0 END)    AS "Ocupados",
+               ROUND(SUM(CASE WHEN l.status='ocupado' THEN 1 ELSE 0 END)::numeric / COUNT(*) * 100, 1) AS "Taxa (%)"
         FROM leitos l
         JOIN tipos_leito tl ON l.tipo_id = tl.id
         GROUP BY tl.id, tl.nome ORDER BY tl.id
@@ -296,13 +296,13 @@ def _gerar_pdf(periodo_dias: int) -> io.BytesIO:
     story.append(Paragraph("2. Internações Ativas por Diagnóstico", secao_style))
     df_int = pd.read_sql(
         """
-        SELECT d.cid_codigo AS CID,
-               d.descricao  AS Diagnóstico,
-               COUNT(*)     AS Internações
+        SELECT d.cid_codigo AS "CID",
+               d.descricao  AS "Diagnóstico",
+               COUNT(*)     AS "Internações"
         FROM internacoes i
         JOIN diagnosticos d ON i.diagnostico_principal_id = d.id
         WHERE i.status = 'ativa'
-        GROUP BY d.id ORDER BY 3 DESC LIMIT 12
+        GROUP BY d.id, d.cid_codigo, d.descricao ORDER BY 3 DESC LIMIT 12
         """,
         engine,
     )
@@ -314,17 +314,17 @@ def _gerar_pdf(periodo_dias: int) -> io.BytesIO:
     story.append(Paragraph(f"3. Fluxo do PA — Últimos {periodo_dias} Dias", secao_style))
     df_pa = pd.read_sql(
         f"""
-        SELECT DATE_FORMAT(data_chegada,'%d/%m/%Y') AS Data,
-               COUNT(*) AS `Total`,
-               SUM(status='atendido') AS Atendidos,
-               SUM(status='desistiu') AS Desistências,
+        SELECT to_char(data_chegada, 'DD/MM/YYYY') AS "Data",
+               COUNT(*) AS "Total",
+               SUM(CASE WHEN status='atendido' THEN 1 ELSE 0 END) AS "Atendidos",
+               SUM(CASE WHEN status='desistiu' THEN 1 ELSE 0 END) AS "Desistências",
                ROUND(AVG(CASE WHEN data_atendimento IS NOT NULL
-                   THEN TIMESTAMPDIFF(MINUTE, data_chegada, data_atendimento) END),0
-               ) AS `T. Médio (min)`
+                   THEN EXTRACT(EPOCH FROM (data_atendimento - data_chegada)) / 60 END), 0
+               ) AS "T. Médio (min)"
         FROM fila_espera
-        WHERE data_chegada >= NOW() - INTERVAL {periodo_dias} DAY
-        GROUP BY DATE(data_chegada)
-        ORDER BY DATE(data_chegada) DESC
+        WHERE data_chegada >= NOW() - INTERVAL '{periodo_dias} days'
+        GROUP BY CAST(data_chegada AS DATE), to_char(data_chegada, 'DD/MM/YYYY')
+        ORDER BY CAST(data_chegada AS DATE) DESC
         LIMIT 15
         """,
         engine,

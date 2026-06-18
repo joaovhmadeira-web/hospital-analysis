@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import {
   LayoutDashboard, Users, BedDouble, Package,
-  Stethoscope, FileText, Cross,
+  Stethoscope, FileText, Cross, Sliders
 } from 'lucide-react'
 
 const ITENS = [
@@ -42,6 +42,11 @@ export default function Sidebar() {
         {ITENS.slice(3).map(({ to, icon: Icon, label }) => (
           <NavItem key={to} to={to} Icon={Icon} label={label} />
         ))}
+
+        <p className="px-3 pt-4 pb-1 text-[10px] font-semibold uppercase tracking-widest text-blue-400">
+          Desenvolvimento
+        </p>
+        <NavItem to="/simulacao" Icon={Sliders} label="Centro de Simulação" />
       </nav>
 
       {/* Rodapé */}

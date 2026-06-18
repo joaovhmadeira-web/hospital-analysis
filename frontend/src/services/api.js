@@ -39,4 +39,18 @@ export const relatorios = {
 
 export const alertasRest = () => api.get('/alertas')
 
+export const simulador = {
+  lookups:            () => api.get('/simulador/lookups'),
+  criarPaciente:      (dados) => api.post('/simulador/paciente', dados),
+  criarProfissional:  (dados) => api.post('/simulador/profissional', dados),
+  criarLeito:         (dados) => api.post('/simulador/leito', dados),
+  criarPlantao:       (dados) => api.post('/simulador/plantao', dados),
+  entrarNaFila:       (dados) => api.post('/simulador/fila', dados),
+  atenderFila:        (dados) => api.post('/simulador/atender-fila', dados),
+  criarInternacao:    (dados) => api.post('/simulador/internacao', dados),
+  altaInternacao:     (dados) => api.post('/simulador/alta-internacao', dados),
+  getHistoricoCsv:    (limit) => api.get('/simulador/historico-csv', { params: { limit } }),
+  salvarHistoricoCsv: (dados) => api.post('/simulador/salvar-historico-csv', dados),
+}
+
 export default api

@@ -13,11 +13,11 @@ def disponibilidade():
         SELECT s.nome AS setor,
                tl.nome AS tipo,
                COUNT(*) AS total,
-               SUM(l.status = 'disponivel')  AS disponiveis,
-               SUM(l.status = 'ocupado')     AS ocupados,
-               SUM(l.status = 'manutencao')  AS manutencao,
-               SUM(l.status = 'reservado')   AS reservados,
-               ROUND(SUM(l.status='ocupado')/COUNT(*)*100,1) AS taxa_ocupacao_pct
+               SUM(CASE WHEN l.status = 'disponivel' THEN 1 ELSE 0 END)  AS disponiveis,
+               SUM(CASE WHEN l.status = 'ocupado' THEN 1 ELSE 0 END)     AS ocupados,
+               SUM(CASE WHEN l.status = 'manutencao' THEN 1 ELSE 0 END)  AS manutencao,
+               SUM(CASE WHEN l.status = 'reservado' THEN 1 ELSE 0 END)   AS reservados,
+               ROUND(SUM(CASE WHEN l.status='ocupado' THEN 1 ELSE 0 END)::numeric / COUNT(*) * 100, 1) AS taxa_ocupacao_pct
         FROM leitos l
         JOIN tipos_leito tl ON l.tipo_id = tl.id
         JOIN setores s      ON l.setor_id = s.id
@@ -36,10 +36,10 @@ def resumo_tipo():
         """
         SELECT tl.nome AS tipo,
                COUNT(*) AS total,
-               SUM(l.status = 'disponivel')  AS disponiveis,
-               SUM(l.status = 'ocupado')     AS ocupados,
-               SUM(l.status = 'manutencao')  AS manutencao,
-               ROUND(SUM(l.status='ocupado')/COUNT(*)*100,1) AS taxa_ocupacao_pct
+               SUM(CASE WHEN l.status = 'disponivel' THEN 1 ELSE 0 END)  AS disponiveis,
+               SUM(CASE WHEN l.status = 'ocupado' THEN 1 ELSE 0 END)     AS ocupados,
+               SUM(CASE WHEN l.status = 'manutencao' THEN 1 ELSE 0 END)  AS manutencao,
+               ROUND(SUM(CASE WHEN l.status='ocupado' THEN 1 ELSE 0 END)::numeric / COUNT(*) * 100, 1) AS taxa_ocupacao_pct
         FROM leitos l
         JOIN tipos_leito tl ON l.tipo_id = tl.id
         GROUP BY tl.id, tl.nome

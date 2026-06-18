@@ -10,7 +10,7 @@ from database import engine
 
 def _data_mais_recente(tabela: str, coluna_data: str) -> str:
     df = pd.read_sql(
-        f"SELECT MAX(DATE({coluna_data})) AS dt FROM {tabela}", engine
+        f"SELECT MAX(CAST({coluna_data} AS DATE)) AS dt FROM {tabela}", engine
     )
     return str(df["dt"].iloc[0])
 
@@ -25,13 +25,13 @@ def calcular_alertas() -> list[dict]:
         df_fila = pd.read_sql(
             f"""
             SELECT
-                SUM(status IN ('aguardando','em_atendimento')) AS aguardando,
+                SUM(CASE WHEN status IN ('aguardando','em_atendimento') THEN 1 ELSE 0 END) AS aguardando,
                 ROUND(AVG(CASE WHEN data_atendimento IS NOT NULL
-                    THEN TIMESTAMPDIFF(MINUTE, data_chegada, data_atendimento)
-                    ELSE TIMESTAMPDIFF(MINUTE, data_chegada, NOW()) END), 0
+                    THEN EXTRACT(EPOCH FROM (data_atendimento - data_chegada)) / 60
+                    ELSE EXTRACT(EPOCH FROM (NOW() - data_chegada)) / 60 END), 0
                 ) AS tempo_medio_min
             FROM fila_espera
-            WHERE DATE(data_chegada) = '{data_pa}'
+            WHERE CAST(data_chegada AS DATE) = '{data_pa}'
               AND status != 'desistiu'
             """,
             engine,
@@ -90,8 +90,8 @@ def calcular_alertas() -> list[dict]:
             """
             SELECT
                 COUNT(*) AS total,
-                SUM(status = 'disponivel') AS disponiveis,
-                ROUND(SUM(status = 'ocupado') / COUNT(*) * 100, 1) AS taxa_pct
+                SUM(CASE WHEN status = 'disponivel' THEN 1 ELSE 0 END) AS disponiveis,
+                ROUND(SUM(CASE WHEN status = 'ocupado' THEN 1 ELSE 0 END)::numeric / COUNT(*) * 100, 1) AS taxa_pct
             FROM leitos
             WHERE tipo_id = 3
             """,
@@ -128,7 +128,7 @@ def calcular_alertas() -> list[dict]:
     try:
         df_ocup = pd.read_sql(
             """
-            SELECT ROUND(SUM(status='ocupado') / COUNT(*) * 100, 1) AS taxa_pct
+            SELECT ROUND(SUM(CASE WHEN status='ocupado' THEN 1 ELSE 0 END)::numeric / COUNT(*) * 100, 1) AS taxa_pct
             FROM leitos
             """,
             engine,
@@ -209,7 +209,7 @@ def calcular_alertas() -> list[dict]:
             WHERE p.data = '{data_plantao}'
               AND p.turno = '{turno_atual}'
             GROUP BY s.id, s.nome
-            HAVING profissionais < 2
+            HAVING COUNT(*) < 2
             """,
             engine,
         )

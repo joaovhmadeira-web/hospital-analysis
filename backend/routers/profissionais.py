@@ -25,7 +25,7 @@ def resumo():
         """
         SELECT tipo, COUNT(*) AS total
         FROM profissionais
-        WHERE ativo = 1
+        WHERE ativo = TRUE
         GROUP BY tipo
         ORDER BY total DESC
         """,
@@ -38,7 +38,7 @@ def resumo():
         SELECT e.nome AS especialidade, COUNT(*) AS medicos
         FROM profissionais p
         JOIN especialidades e ON p.especialidade_id = e.id
-        WHERE p.tipo = 'medico' AND p.ativo = 1
+        WHERE p.tipo = 'medico' AND p.ativo = TRUE
         GROUP BY e.id, e.nome
         ORDER BY medicos DESC
         """,
@@ -60,15 +60,15 @@ def escala():
         SELECT p.turno,
                s.nome AS setor,
                COUNT(DISTINCT p.profissional_id) AS profissionais,
-               SUM(pro.tipo = 'medico')             AS medicos,
-               SUM(pro.tipo = 'enfermeiro')          AS enfermeiros,
-               SUM(pro.tipo = 'tecnico_enfermagem')  AS tecnicos
+               SUM(CASE WHEN pro.tipo = 'medico' THEN 1 ELSE 0 END)             AS medicos,
+               SUM(CASE WHEN pro.tipo = 'enfermeiro' THEN 1 ELSE 0 END)          AS enfermeiros,
+               SUM(CASE WHEN pro.tipo = 'tecnico_enfermagem' THEN 1 ELSE 0 END)  AS tecnicos
         FROM plantoes p
         JOIN setores s       ON p.setor_id = s.id
         JOIN profissionais pro ON p.profissional_id = pro.id
         WHERE p.data = '{data}'
         GROUP BY p.turno, s.id, s.nome
-        ORDER BY FIELD(p.turno,'manha','tarde','noite'), s.nome
+        ORDER BY CASE p.turno WHEN 'manha' THEN 1 WHEN 'tarde' THEN 2 WHEN 'noite' THEN 3 END, s.nome
         """,
         engine,
     ).fillna(0)
