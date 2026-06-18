@@ -4,7 +4,7 @@ import { useAlertStore } from '../store/alertStore'
 import AlertPanel from './AlertPanel'
 
 export default function TopBar({ titulo }) {
-  const { alertas, wsStatus } = useAlertStore()
+  const { alertas, wsStatus, dispensarAlerta } = useAlertStore()
   const [painelAberto, setPainelAberto] = useState(false)
   const [horaAtual, setHoraAtual] = useState(new Date())
 
@@ -63,7 +63,11 @@ export default function TopBar({ titulo }) {
             </button>
 
             {painelAberto && (
-              <AlertPanel alertas={alertas} onFechar={() => setPainelAberto(false)} />
+              <AlertPanel
+                alertas={alertas}
+                onFechar={() => setPainelAberto(false)}
+                onDispensar={dispensarAlerta}
+              />
             )}
           </div>
         </div>

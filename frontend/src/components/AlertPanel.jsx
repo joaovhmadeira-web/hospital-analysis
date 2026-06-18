@@ -13,7 +13,7 @@ const BORDA = {
   info:    'border-l-4 border-blue-500 bg-blue-50',
 }
 
-export default function AlertPanel({ alertas, onFechar }) {
+export default function AlertPanel({ alertas, onFechar, onDispensar }) {
   const ref = useRef(null)
 
   useEffect(() => {
@@ -52,6 +52,13 @@ export default function AlertPanel({ alertas, onFechar }) {
                   {a.timestamp ? new Date(a.timestamp).toLocaleTimeString('pt-BR') : ''}
                 </p>
               </div>
+              <button
+                onClick={() => onDispensar?.(a.id)}
+                title="Dispensar alerta"
+                className="self-start text-slate-400 hover:text-slate-700 transition-colors shrink-0"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
             </div>
           ))
         )}
