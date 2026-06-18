@@ -106,16 +106,16 @@ class IndicadorRow(BaseModel):
 def get_lookups():
     """Retorna todas as tabelas de apoio necessárias para preencher os formulários do simulador."""
     try:
-        pacientes = pd.read_sql("SELECT id, nome, cpf FROM pacientes ORDER BY nome", engine).to_dict("records")
-        leitos_disp = pd.read_sql("SELECT id, numero, status, setor_id, tipo_id FROM leitos ORDER BY numero", engine).to_dict("records")
-        profissionais = pd.read_sql("SELECT id, nome, registro, tipo, setor_id FROM profissionais WHERE ativo = TRUE ORDER BY nome", engine).to_dict("records")
-        setores = pd.read_sql("SELECT id, nome, andar, ala FROM setores ORDER BY nome", engine).to_dict("records")
-        especialidades = pd.read_sql("SELECT id, nome FROM especialidades ORDER BY nome", engine).to_dict("records")
-        diagnosticos = pd.read_sql("SELECT id, cid_codigo, descricao, categoria FROM diagnosticos ORDER BY cid_codigo", engine).to_dict("records")
-        tipos_leito = pd.read_sql("SELECT id, nome FROM tipos_leito ORDER BY nome", engine).to_dict("records")
+        pacientes = _sanitize_df(pd.read_sql("SELECT id, nome, cpf FROM pacientes ORDER BY nome", engine))
+        leitos_disp = _sanitize_df(pd.read_sql("SELECT id, numero, status, setor_id, tipo_id FROM leitos ORDER BY numero", engine))
+        profissionais = _sanitize_df(pd.read_sql("SELECT id, nome, registro, tipo, setor_id FROM profissionais WHERE ativo = TRUE ORDER BY nome", engine))
+        setores = _sanitize_df(pd.read_sql("SELECT id, nome, andar, ala FROM setores ORDER BY nome", engine))
+        especialidades = _sanitize_df(pd.read_sql("SELECT id, nome FROM especialidades ORDER BY nome", engine))
+        diagnosticos = _sanitize_df(pd.read_sql("SELECT id, cid_codigo, descricao, categoria FROM diagnosticos ORDER BY cid_codigo", engine))
+        tipos_leito = _sanitize_df(pd.read_sql("SELECT id, nome FROM tipos_leito ORDER BY nome", engine))
 
         # Fila de espera ativa para a tela de monitoramento/atendimento no simulador
-        fila_ativa = pd.read_sql(
+        fila_ativa = _sanitize_df(pd.read_sql(
             """
             SELECT id, paciente_id, nome_paciente, data_chegada, prioridade, queixa_principal, status
             FROM fila_espera
@@ -130,10 +130,10 @@ def get_lookups():
               END, data_chegada
             """,
             engine
-        ).to_dict("records")
+        ))
 
         # Internações ativas para a aba de alta no simulador
-        internacoes_ativas = pd.read_sql(
+        internacoes_ativas = _sanitize_df(pd.read_sql(
             """
             SELECT i.id, p.nome AS paciente_nome, l.numero AS leito_numero, i.leito_id,
                    d.cid_codigo AS cid, d.descricao AS diagnostico, i.data_entrada,
@@ -147,7 +147,7 @@ def get_lookups():
             ORDER BY i.data_entrada DESC
             """,
             engine
-        ).to_dict("records")
+        ))
 
         return {
             "pacientes": pacientes,

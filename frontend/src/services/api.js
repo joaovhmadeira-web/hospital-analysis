@@ -39,6 +39,12 @@ export const relatorios = {
 
 export const alertasRest = () => api.get('/alertas')
 
+export const alertasApi = {
+  listar:    ()   => api.get('/alertas'),
+  dispensar: (id) => api.post(`/alertas/${encodeURIComponent(id)}/dispensar`),
+  limparDispensados: () => api.delete('/alertas/dispensados'),
+}
+
 export const simulador = {
   lookups:            () => api.get('/simulador/lookups'),
   criarPaciente:      (dados) => api.post('/simulador/paciente', dados),

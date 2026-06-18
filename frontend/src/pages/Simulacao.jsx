@@ -607,7 +607,7 @@ export default function Simulacao() {
 
                       return (
                         <tr key={i.id}>
-                          <td className="font-semibold text-slate-800">{i.paciente_name}</td>
+                          <td className="font-semibold text-slate-800">{i.paciente_nome}</td>
                           <td className="font-mono text-sm text-hospital-blue font-bold">{i.leito_numero}</td>
                           <td>
                             <span className="font-semibold text-slate-700 bg-slate-100 px-1.5 py-0.5 rounded text-xs">{i.cid}</span>
